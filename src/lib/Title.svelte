@@ -104,7 +104,6 @@
     box-sizing: border-box;
     position: relative;
 
-    background-image: url('/image/back.jpg');
     background-size: cover;
     background-position: center 40.5%;
     background-repeat: no-repeat;
@@ -234,9 +233,9 @@
   }
 </style>
 
-<div class="hero">
+<div class="hero" style={`background-image:url('${base}/image/back.jpg')`}>
   <div class="left">
-    <img src="/image/title.png" alt="Livability Analysis" class="title-img" />
+    <img src="${base}/image/title.png" alt="Livability Analysis" class="title-img" />
     <div class="authors">Andrew Wang &amp; Jingwu Wen</div>
     <div class="tips"> Supports simultaneous comparison of up to <a class="number">5</a> regions. </div>
   </div>

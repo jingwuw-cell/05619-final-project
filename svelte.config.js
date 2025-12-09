@@ -1,18 +1,21 @@
 // svelte.config.js
 import adapter from '@sveltejs/adapter-static';
+import { vitePreprocess } from '@sveltejs/kit/vite';
 
-const dev = process.env.NODE_ENV === 'development';
-const base = dev ? '' : '/05619final';
+const dev = process.argv.includes('dev');
+// 仓库名：如果你是 05619-final-project，就写下面这个
+const base = dev ? '' : '/05619-final-project';
 
 const config = {
+  preprocess: vitePreprocess(),
+
   kit: {
-    adapter: adapter({
-      pages: 'build',
-      assets: 'build',
-      fallback: 'index.html'
-    }),
+    adapter: adapter(),
     paths: {
       base
+    },
+    alias: {
+      $lib: 'src/lib'
     }
   }
 };
