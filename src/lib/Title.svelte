@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
+  import { base } from '$app/paths';
 
   type PresetWeights = {
     environment: { greenery: number; industry: number };
