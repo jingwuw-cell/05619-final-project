@@ -90,11 +90,7 @@
   <div class="item">
     <h3 class="item-title">Community events</h3>
     <p>
-      <code>PublicPerCap</code> approximates the density of public amenities and
-      venues (such as libraries, community centers, or cultural facilities) per
-      resident. Because the distribution is extremely right-skewed, we apply
-      log1p, then assign scores from 0 to 100 based on the 1st and 99th percentiles,
-      where counties with more amenities per capita receive higher scores.
+      <code>PublicPerCap</code> measures the density of public transit services (such as bus stops, rail stations, or other fixed-route transit points) relative to the population. Because the raw values are highly right-skewed, we apply a log1p transformation and then rescale counties to a 0–100 score using the 1st and 99th percentiles as bounds. Counties with more public transit availability per capita receive higher scores.
     </p>
   </div>
 
