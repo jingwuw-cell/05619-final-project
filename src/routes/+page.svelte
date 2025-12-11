@@ -644,6 +644,20 @@
       />
 
       <BarChart regions={barSeries} height={Math.round(mapH / 2)} />
+
+      <!-- YouTube video embed -->
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/l3l1_2pRZew"
+          title="Livability Analysis – demo"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+
+
       <ScoringInfo />
     </div>
 
@@ -835,6 +849,27 @@
     display: flex;
     align-items: stretch;
   }
+
+  .video-wrapper {
+    margin-top: 8px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    background: #000;
+
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+  }
+
+  .video-wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
 
   .weight-panel :global(*) {
     margin-top: 0;
