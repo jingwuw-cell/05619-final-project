@@ -689,6 +689,67 @@
       <div class="weight-panel">
         <Weight on:change={onWeightsChange} preset={presetWeights} />
       </div>
+
+            <div class="data-panel">
+        <div class="data-title">Data Sources</div>
+        <ul class="data-list">
+          <li>
+            <a
+              href="https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
+              target="_blank"
+              rel="noreferrer"
+            >
+              U.S. Census Bureau – American Community Survey (ACS) data via FTP
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.census.gov/programs-surveys/economic-census.html"
+              target="_blank"
+              rel="noreferrer"
+            >
+              U.S. Census Bureau – Economic Census
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.census.gov/programs-surveys/cbp.html"
+              target="_blank"
+              rel="noreferrer"
+            >
+              U.S. Census Bureau – County Business Patterns (CBP)
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.bls.gov/qcew/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              U.S. Bureau of Labor Statistics – Quarterly Census of Employment and Wages (QCEW)
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://datacommons.org/tools/visualization#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DCounty"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Data Commons – County-level indicators and visualization tools
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.epa.gov/outdoor-air-quality-data/air-quality-index-daily-values-report"
+              target="_blank"
+              rel="noreferrer"
+            >
+              U.S. EPA – Air Quality Index (AQI) Daily Values
+            </a>
+          </li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </section>
@@ -875,4 +936,39 @@
     margin-top: 0;
     margin-bottom: 0;
   }
+
+    .data-panel {
+    margin-top: 6px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #ffffff;
+    font: 12px/1.4 system-ui;
+  }
+
+  .data-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0 0 4px;
+  }
+
+  .data-list {
+    margin: 0;
+    padding-left: 16px;
+    list-style-type: disc;
+  }
+
+  .data-list li {
+    margin-bottom: 2px;
+  }
+
+  .data-list a {
+    text-decoration: none;
+    color: #0366d6;
+  }
+
+  .data-list a:hover {
+    text-decoration: underline;
+  }
+
 </style>

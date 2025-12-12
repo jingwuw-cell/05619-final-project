@@ -1,12 +1,14 @@
 <script lang="ts"> 
   import { onMount, createEventDispatcher } from 'svelte';
+
   const STORAGE_KEY = 'livability.weights.v1';
   const dispatch = createEventDispatcher();
 
   type Sub = { key: string; label: string; value: number };
   type Cat = { id: string; title: string; open: boolean; subs: Sub[] };
 
-  // Only keep the 10 metrics that actually have data
+  export let preset: Record<string, Record<string, number>> | null = null;
+
   let cats: Cat[] = [
     {
       id: 'environment',
@@ -30,9 +32,7 @@
       id: 'engagement',
       title: 'Engagement',
       open: true,
-      subs: [
-        { key: 'events', label: 'Community events', value: 0 }
-      ]
+      subs: [{ key: 'events', label: 'Community events', value: 0 }]
     },
     {
       id: 'opportunities',
@@ -56,9 +56,7 @@
       id: 'transport',
       title: 'Transportation & Mobility',
       open: true,
-      subs: [
-        { key: 'walk', label: 'Walkability', value: 0 }
-      ]
+      subs: [{ key: 'walk', label: 'Walkability', value: 0 }]
     }
   ];
 
@@ -86,11 +84,13 @@
   }
 
   let savedHint = '';
+
   function save() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(toObject()));
     savedHint = 'Saved ✓';
     dispatch('change', { weights: toObject() });
   }
+
   function load() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
@@ -114,6 +114,15 @@
     load();
     dispatch('change', { weights: toObject() });
   });
+
+  let lastPreset: Record<string, Record<string, number>> | null = null;
+
+  $: if (preset && preset !== lastPreset) {
+    lastPreset = preset;
+    fromObject(preset);
+    savedHint = '';
+    dispatch('change', { weights: toObject() });
+  }
 </script>
 
 <style>
@@ -205,34 +214,6 @@
     font: 11px/1.1 system-ui;
     margin-left: 6px;
   }
-
-  .datasource {
-    margin-top: 10px;
-    padding-top: 6px;
-    border-top: 1px solid #e5e7eb;
-    font: 11px/1.3 system-ui;
-  }
-
-  .datasource-title {
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .datasource-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .datasource-list li + li {
-    margin-top: 2px;
-  }
-
-  .datasource a {
-    color: #2563eb;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
 </style>
 
 <div class="panel">
@@ -277,65 +258,5 @@
     <button class="btn" on:click={() => setAll(0)}>Neutralize (all 0)</button>
     <button class="btn" on:click={() => setAll(1)}>Maximize (all 1)</button>
     {#if savedHint}<span class="hint">{savedHint}</span>{/if}
-  </div>
-
-  <div class="datasource">
-    <div class="datasource-title">Data source</div>
-    <ul class="datasource-list">
-      <li>
-        <a
-          href="https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
-          target="_blank"
-          rel="noreferrer"
-        >
-          U.S. Census Bureau – American Community Survey (ACS)
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://www.census.gov/programs-surveys/economic-census.html"
-          target="_blank"
-          rel="noreferrer"
-        >
-          U.S. Census Bureau – Economic Census
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://www.census.gov/programs-surveys/cbp.html"
-          target="_blank"
-          rel="noreferrer"
-        >
-          U.S. Census Bureau – County Business Patterns (CBP)
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://www.bls.gov/qcew/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          U.S. Bureau of Labor Statistics – QCEW
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://datacommons.org/tools/visualization#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DCounty"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Data Commons – county-level indicators
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://www.epa.gov/outdoor-air-quality-data/air-quality-index-daily-values-report"
-          target="_blank"
-          rel="noreferrer"
-        >
-          U.S. EPA – Air Quality Index (AQI) Daily Values
-        </a>
-      </li>
-    </ul>
   </div>
 </div>
